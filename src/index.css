@@ -1,0 +1,229 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Smart Parking Zone Management System - Dark Futuristic Theme */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@layer base {
+  :root {
+    /* Dark Navy Background Palette */
+    --background: 222 47% 6%;
+    --foreground: 210 40% 98%;
+
+    /* Card surfaces with glassmorphism */
+    --card: 222 47% 9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+
+    /* Electric Cyan Primary */
+    --primary: 199 89% 60%;
+    --primary-foreground: 222 47% 6%;
+
+    /* Muted Navy Secondary */
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217 33% 14%;
+    --muted-foreground: 215 20% 55%;
+
+    /* Accent - Subtle Cyan */
+    --accent: 199 89% 48%;
+    --accent-foreground: 222 47% 6%;
+
+    /* Status Colors */
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 40% 98%;
+
+    --success: 142 71% 45%;
+    --success-foreground: 210 40% 98%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 222 47% 6%;
+
+    /* Borders and inputs */
+    --border: 217 33% 18%;
+    --input: 217 33% 14%;
+    --ring: 199 89% 60%;
+
+    --radius: 0.75rem;
+
+    /* Sidebar */
+    --sidebar-background: 222 47% 8%;
+    --sidebar-foreground: 215 20% 65%;
+    --sidebar-primary: 199 89% 60%;
+    --sidebar-primary-foreground: 222 47% 6%;
+    --sidebar-accent: 217 33% 14%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217 33% 15%;
+    --sidebar-ring: 199 89% 60%;
+
+    /* Custom gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(199 89% 60%), hsl(199 89% 40%));
+    --gradient-glow: linear-gradient(135deg, hsl(199 89% 60% / 0.3), hsl(199 89% 40% / 0.1));
+    --gradient-card: linear-gradient(145deg, hsl(222 47% 11%), hsl(222 47% 7%));
+
+    /* Shadows */
+    --shadow-glow: 0 0 30px hsl(199 89% 60% / 0.15);
+    --shadow-card: 0 4px 24px hsl(222 47% 0% / 0.4);
+  }
+
+  .dark {
+    /* Already dark by default */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-muted/30 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/30 rounded-full hover:bg-muted-foreground/50 transition-colors;
+  }
+}
+
+@layer components {
+  /* Glassmorphism card effect */
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-xl border border-border/50;
+    box-shadow: var(--shadow-card);
+  }
+
+  .glass-card-glow {
+    @apply glass-card;
+    box-shadow: var(--shadow-card), var(--shadow-glow);
+  }
+
+  /* Glowing text effect */
+  .text-glow {
+    text-shadow: 0 0 20px hsl(var(--primary) / 0.5);
+  }
+
+  /* Metric card styling */
+  .metric-card {
+    @apply glass-card rounded-xl p-6 relative overflow-hidden;
+  }
+
+  .metric-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.5), transparent);
+  }
+
+  /* Status badges */
+  .status-available {
+    @apply bg-success/20 text-success border border-success/30;
+  }
+
+  .status-occupied {
+    @apply bg-destructive/20 text-destructive border border-destructive/30;
+  }
+
+  .status-filling {
+    @apply bg-warning/20 text-warning border border-warning/30;
+  }
+
+  /* Custom slider track */
+  .slider-track {
+    @apply h-3 rounded-full bg-muted relative overflow-hidden;
+  }
+
+  .slider-fill {
+    @apply absolute left-0 top-0 h-full rounded-full;
+    background: var(--gradient-primary);
+  }
+
+  .slider-thumb {
+    @apply w-6 h-6 rounded-full bg-primary border-4 border-background cursor-grab active:cursor-grabbing;
+    box-shadow: 0 0 15px hsl(var(--primary) / 0.5);
+  }
+
+  /* Animated background grid */
+  .bg-grid {
+    background-image: 
+      linear-gradient(hsl(var(--border) / 0.3) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border) / 0.3) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  /* Pulse animation for live indicators */
+  .pulse-live {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 0 0 hsl(var(--primary) / 0.4);
+    }
+    50% {
+      box-shadow: 0 0 0 10px hsl(var(--primary) / 0);
+    }
+  }
+
+  /* Shimmer loading effect */
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--muted)) 25%,
+      hsl(var(--muted-foreground) / 0.1) 50%,
+      hsl(var(--muted)) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+}
+
+@layer utilities {
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-primary);
+  }
+
+  /* Transition utilities */
+  .transition-glow {
+    @apply transition-all duration-300;
+  }
+
+  .hover-glow:hover {
+    box-shadow: var(--shadow-glow);
+  }
+
+  /* Monospace for data */
+  .font-mono-data {
+    font-family: 'JetBrains Mono', monospace;
+    font-feature-settings: 'tnum' 1;
+  }
+}
